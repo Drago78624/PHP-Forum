@@ -4,6 +4,7 @@ use LDAP\Result;
 
     require "partials/_connection.php";
     require "partials/_categories.php";
+    require "partials/_time-elapsed-function.php";
 
     $id = $_GET['cat_id'];
 
@@ -94,7 +95,7 @@ use LDAP\Result;
         </form>
         <?php else: ?>
         <div class="alert alert-warning fs-4 text-center p-5" role="alert">
-            You need to logged in to post a thread
+            You need to be logged in to post a thread
         </div>
         <?php endif; ?>
     </div>
@@ -109,7 +110,10 @@ use LDAP\Result;
                     <img class="rounded-circle" src="https://source.unsplash.com/random/60x60/?people" alt="...">
                 </div>
                 <div class="flex-grow-1 ms-3">
-                    <h5><?php echo htmlspecialchars($thread['thread_title']) ?></h5>
+                    <div class="mb-2 d-flex align-items-center">
+                        <h5 class="me-2 mb-0"><?php echo htmlspecialchars($thread['thread_title']) ?></h5> <span
+                            class="muted"><?php echo time_elapsed_string($thread['timestamp']); ?></span>
+                    </div>
                     <?php echo htmlspecialchars($thread['thread_desc']) ?>
                 </div>
             </div>

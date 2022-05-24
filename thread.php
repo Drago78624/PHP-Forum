@@ -57,6 +57,7 @@
     </div>
     <div class="container my-3">
         <h1 class="text-center">Add a comment</h1>
+        <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
         <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']);?>" method="POST">
             <div class="mb-3">
                 <label for="commentDesc" class="form-label">Type a comment</label>
@@ -64,6 +65,11 @@
             </div>
             <button type="submit" class="btn btn-warning" name="commentBtn" value="commentAdded">Add comment</button>
         </form>
+        <?php else: ?>
+        <div class="alert alert-warning fs-4 text-center p-5" role="alert">
+            You need to be logged in to comment
+        </div>
+        <?php endif; ?>
     </div>
     <div class="container my-3">
         <h1 class="text-center">Discussions</h1>
