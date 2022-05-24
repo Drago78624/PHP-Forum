@@ -32,6 +32,12 @@
 
 <body class="d-flex flex-column min-vh-100">
     <?php require "partials/_header.php" ?>
+    <?php if(isset($_GET['alert']) && $_GET['alert'] == true): ?>
+    <div class="alert alert-<?php echo htmlspecialchars($_GET['clr'])?> my-0 alert-dismissible fade show" role="alert">
+        <strong><?php echo htmlspecialchars($_GET['status']); ?>!</strong> <?php echo htmlspecialchars($_GET['msg']); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php endif; ?>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
