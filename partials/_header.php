@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a href="index.php" class="navbar-brand text-warning fs-4">Honoululu</a>
@@ -29,10 +32,16 @@
                         </svg></button>
                 </div>
             </form>
-            <div class="navbar-nav">
+            <div class="navbar-nav flex align-items-center">
+                <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
+                <span class="text-light mx-3 d-inline-block">Welcome,
+                    <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                <a href="partials/_logout.php" class="nav-item btn btn-warning">Logout</a>
+                <?php else: ?>
                 <a href="#" class="nav-item nav-link mx-3" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                 <a href="#" class="nav-item btn btn-warning" data-bs-toggle="modal" data-bs-target="#signupModal">Sign
                     up</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>

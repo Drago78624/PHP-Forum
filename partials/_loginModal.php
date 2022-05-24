@@ -6,20 +6,20 @@
                 <h5 class="modal-title" id="loginModalLabel">Login</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form>
+            <form action="partials/_loginHandler.php" method="POST">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" id="password" name="password">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-warning">Login</button>
+                    <button type="submit" class="btn btn-warning" name="login" value="login">Login</button>
                 </div>
             </form>
         </div>

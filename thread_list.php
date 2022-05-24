@@ -78,6 +78,7 @@ use LDAP\Result;
     <div class="container my-3">
 
         <h1 class="text-center">Post a Thread</h1>
+        <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true): ?>
         <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']);?>" method="POST">
             <div class="mb-3">
                 <label for="threadTitle" class="form-label">Title</label>
@@ -91,6 +92,11 @@ use LDAP\Result;
             </div>
             <button type="submit" class="btn btn-warning" name="postBtn" value="threadPosted">Post</button>
         </form>
+        <?php else: ?>
+        <div class="alert alert-warning fs-4 text-center p-5" role="alert">
+            You need to logged in to post a thread
+        </div>
+        <?php endif; ?>
     </div>
     <div class="container my-3" id="threads">
         <h1 class="text-center">Browse Threads</h1>
