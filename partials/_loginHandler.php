@@ -22,12 +22,25 @@
                 $username = substr($row['user_email'], 0, strpos($row['user_email'], "@"));
                 echo $username;
                 $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $row['user_id'];
                 $alert = true;
                 $msg = "You have been successfully logged in";
                 $clr = "success";
                 $status = "Success";
                 header("Location: ../index.php?msg=$msg&status=$status&alert=$alert&clr=$clr");
+            }else {
+                $alert = true;
+                $msg = "enter a password";
+                $clr = "danger";
+                $status = "Error";
+                header("Location: ../index.php?msg=$msg&status=$status&alert=$alert&clr=$clr");
             }
+        }else {
+            $alert = true;
+            $msg = "enter an email first";
+            $clr = "danger";
+            $status = "Error";
+            header("Location: ../index.php?msg=$msg&status=$status&alert=$alert&clr=$clr");
         }
     }
 ?>

@@ -2,10 +2,14 @@
 
 use LDAP\Result;
 
+    require "partials/_session_start.php";
     require "partials/_connection.php";
     require "partials/_categories.php";
     require "partials/_time-elapsed-function.php";
 
+    if(isset($_SESSION['loggedin'])){
+        $uid = $_SESSION['user_id'];
+    }
     $id = $_GET['cat_id'];
 
     // inserting thread
@@ -14,7 +18,7 @@ use LDAP\Result;
         $thread_title = $_POST['threadTitle'];
         $thread_desc = $_POST['threadDesc'];
 
-        $threadInsertSql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`) VALUES ('$thread_title', '$thread_desc', '$id', '0');";
+        $threadInsertSql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`) VALUES ('$thread_title', '$thread_desc', '$id', '$uid');";
         $threadInsertResult = mysqli_query($conn, $threadInsertSql);
         $threadPostAlert = true;
     }
@@ -103,7 +107,7 @@ use LDAP\Result;
         <h1 class="text-center">Browse Threads</h1>
         <?php if($threadRow): ?>
         <?php foreach($threadRow as $threadlist => $thread): ?>
-        <a href="thread.php?thread_id=<?php echo htmlspecialchars($thread['thread_id'])?>"
+        <a href="thread.php?thread_id=<?php echo htmlspecialchars($thread['thread_id'])?>&user_id=<?php echo htmlspecialchars($thread['thread_user_id'])?>"
             class="text-dark text-decoration-none">
             <div class="d-flex my-3 bg-light p-3 rounded thread-card">
                 <div class="flex-shrink-0">

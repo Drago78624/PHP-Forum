@@ -1,18 +1,28 @@
 <?php
+    require "partials/_session_start.php";
     require "partials/_connection.php";
     require "partials/_categories.php";
     require "partials/_time-elapsed-function.php";
 
     $id = $_GET['thread_id'];
+    $uid = $_GET['user_id'];
+    if(isset($_SESSION['loggedin'])){
+        $uidForComment = $_SESSION['user_id'];
+    }
     $sql = "SELECT * FROM `threads` WHERE thread_id = $id";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
+
+    $userSql = "SELECT * FROM `users` WHERE user_id = $uid";
+    $userSqlResult = mysqli_query($conn, $userSql);
+    $userRow = mysqli_fetch_assoc($userSqlResult);
+
 
     $commentPostAlert = false;
     if(isset($_POST['commentBtn'])){
         $comment_desc = $_POST['commentDesc'];
 
-        $commentInsertSql = "INSERT INTO `comments` (`comment_content`, `thread_id`) VALUES ('$comment_desc', '$id');";
+        $commentInsertSql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`) VALUES ('$comment_desc', '$id', '$uidForComment');";
         $commentInsertResult = mysqli_query($conn, $commentInsertSql);
         $commentPostAlert = true;
     }
@@ -20,6 +30,9 @@
     $commentSql = "SELECT * FROM `comments` WHERE thread_id = $id";
     $commentResult = mysqli_query($conn, $commentSql);
     $commentRow = mysqli_fetch_all($commentResult, MYSQLI_ASSOC);
+    
+    // print_r($commentRow);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -52,6 +65,8 @@
             <div class="flex-grow-1 ms-3">
                 <h4><?php echo htmlspecialchars($row['thread_title']) ?></h4>
                 <p class="fs-5"><?php echo htmlspecialchars($row['thread_desc']) ?></p>
+                <strong>Posted by : </strong>
+                <?php echo htmlspecialchars(substr($userRow['user_email'], 0, strpos($userRow['user_email'], "@"))) ?>
             </div>
         </div>
     </div>
@@ -74,14 +89,22 @@
     <div class="container my-3">
         <h1 class="text-center">Discussions</h1>
         <?php if($commentRow): ?>
+
         <?php foreach($commentRow as $commentlist => $comment): ?>
+        <?php
+                    $comment_id = $comment['comment_by'];
+                    $commentorSql = "SELECT user_email FROM `users` WHERE user_id = $comment_id";
+                    $commentorSqlResult = mysqli_query($conn, $commentorSql);
+                    $commentorRow = mysqli_fetch_assoc($commentorSqlResult);
+                    $commentorUsername = substr($commentorRow['user_email'], 0, strpos($commentorRow['user_email'], "@"));
+                ?>
         <div class="d-flex my-3 bg-light p-3 rounded thread-card">
             <div class="flex-shrink-0">
                 <img class="rounded-circle" src="https://source.unsplash.com/random/60x60/?people" alt="...">
             </div>
             <div class="flex-grow-1 ms-3">
                 <div class="mb-2 d-flex align-items-center">
-                    <h5 class="me-2 mb-0">username</h5> <span
+                    <h5 class="me-2 mb-0"><?php echo htmlspecialchars($commentorUsername) ?></h5> <span
                         class="muted"><?php echo time_elapsed_string($comment['timestamp']); ?></span>
                 </div>
                 <?php echo htmlspecialchars($comment['comment_content']) ?>
