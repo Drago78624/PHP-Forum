@@ -9,9 +9,8 @@
             <form action="partials/_signupHandler.php" method="POST">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="" aria-describedby="emailHelp" name="email">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        <label for="email" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="email">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>

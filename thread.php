@@ -66,7 +66,7 @@
                 <h4><?php echo htmlspecialchars($row['thread_title']) ?></h4>
                 <p class="fs-5"><?php echo htmlspecialchars($row['thread_desc']) ?></p>
                 <strong>Posted by : </strong>
-                <?php echo htmlspecialchars(substr($userRow['user_email'], 0, strpos($userRow['user_email'], "@"))) ?>
+                <?php echo htmlspecialchars($userRow['user_email']) ?>
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
                     $commentorSql = "SELECT user_email FROM `users` WHERE user_id = $comment_id";
                     $commentorSqlResult = mysqli_query($conn, $commentorSql);
                     $commentorRow = mysqli_fetch_assoc($commentorSqlResult);
-                    $commentorUsername = substr($commentorRow['user_email'], 0, strpos($commentorRow['user_email'], "@"));
+                    $commentorUsername = $commentorRow['user_email'];
                 ?>
         <div class="d-flex my-3 bg-light p-3 rounded thread-card">
             <div class="flex-shrink-0">

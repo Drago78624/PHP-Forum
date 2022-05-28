@@ -1,6 +1,6 @@
 <?php 
     require "partials/_session_start.php";
-  require "partials/_connection.php";
+    require "partials/_connection.php";
     require "partials/_categories.php";
   // print_r($categories);
  ?>

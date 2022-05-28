@@ -19,7 +19,7 @@
             if(password_verify($password, $row['user_password'])){
                 session_start();
                 $_SESSION['loggedin'] = true;
-                $username = substr($row['user_email'], 0, strpos($row['user_email'], "@"));
+                $username = $row['user_email'];
                 echo $username;
                 $_SESSION['username'] = $username;
                 $_SESSION['user_id'] = $row['user_id'];

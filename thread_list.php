@@ -103,7 +103,7 @@ use LDAP\Result;
         </div>
         <?php endif; ?>
     </div>
-    <div class="container my-3" id="threads">
+    <div class="container my-3 " id="threads">
         <h1 class="text-center">Browse Threads</h1>
         <?php if($threadRow): ?>
         <?php foreach($threadRow as $threadlist => $thread): ?>
